@@ -1,0 +1,91 @@
+@font-face {
+    font-family: 'MyCustomFont';
+    src: url('/static/fonts/런드리고딕-Regular.ttf') format('truetype'); /* /static/ 경로 추가 */
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'MyCustomFont', Arial, sans-serif; /* 사용자 정의 폰트 사용 */
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 20px;
+}
+.container {
+    display: flex;
+    justify-content: space-between;
+}
+.camera {
+    width: 60%;
+    padding-right: 10px;
+    color: white;
+    border-radius: 5px;
+}
+.list {
+    width: 40%;
+    padding-left: 10px;
+    color: white;
+    border-radius: 5px;
+}
+h1 {
+    margin: 0;
+    padding: 10px;
+    text-align: center;
+    border-radius: 50px;
+    background-color: #234234;
+    height: 35px;
+    font-size: 35px;
+}
+h2 {
+    margin: 0;
+    padding: 10px;
+    color: #000;
+    text-align: center;
+    border-radius: 50px;
+    background-color: #dea89e;
+    height: 35px;
+    font-size: 35px;
+}        
+img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+li {
+    width: 95%;
+    background-color: #fff;
+    color: #000;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 20px;
+}
+input {
+    width: 200px;
+    height: 32px;
+    font-size: 15px;
+    border: 0;
+    border-radius: 15px;
+    outline: none;
+    padding-left: 10px;
+    background-color: rgb(233, 233, 233);
+}    
+.w-btn-skin {
+    background-color: #f8e6e0;
+    border-radius: 15px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    font-family: 'MyCustomFont', Arial, sans-serif; /* 사용자 정의 폰트 사용 */
+}              
+/* 추가적인 스타일을 위해 hidden-image 클래스 설정 */
+.hidden-image {
+    display: none; /* 기본적으로 숨김 */
+    width: 100%; /* 너비 조정 */
+    height: auto; /* 높이는 자동 */
+    border-radius: 10px; /* 모서리 둥글게 */
+    margin-top: 5px; /* 간격 추가 */
+}

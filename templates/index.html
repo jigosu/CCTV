@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YOLOv8 얼굴 인식 시스템</title>
+    <link rel="stylesheet" href="../static/css/style.css"> <!-- CSS 파일 링크 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery 추가 -->
+</head>
+<body>
+    <div class="container">
+        <div class="camera">
+            <h1>실시간 CCTV 화면</h1>
+            <img src="{{ url_for('video_feed') }}" alt="Video Feed" style="width: 100%; height: auto; border-radius: 5px;"/>
+            
+
+        </div>
+        
+        <div class="list">
+            <h2>방문자 목록</h2>
+            <form id="search-form">
+                <br>
+                <input type="text" name="search_query" placeholder="방문자 검색">
+                <input type="date" name="start_date" placeholder="시작 날짜">
+                <input type="date" name="end_date" placeholder="종료 날짜">
+                <button type="submit" class="w-btn-skin"><b>🔍</b></button>
+                <button class="w-btn-skin" id="refresh"><b>🔄</b></button>
+            </form>
+            
+            <div id="search-results"></div> <!-- 검색 결과를 표시할 영역 -->            
+            <ul id="image-list"> <!-- 기존 방문자 목록을 위한 ID 추가 -->
+                {% for image in images %}
+                    <li class="image-item" data-image="{{ image[1] }}">
+                        <strong>방문 날짜:</strong> {{ image[2] }} <br>
+                        <strong>방문자:</strong> {{ image[3] }} <br>
+                        <img src="../{{ image[1] }}" alt="Image" class="hidden-image" style="display: none; width: 50%; height: auto; border-radius: 10px; margin-top: 5px;"/>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // 기존 검색 기능
+            $('#search-form').on('submit', function(event) {
+                event.preventDefault(); // 폼 제출 기본 동작 방지
+                var query = $('input[name="search_query"]').val(); // 검색어 가져오기
+                var startDate = $('input[name="start_date"]').val(); // 시작 날짜 가져오기
+                var endDate = $('input[name="end_date"]').val(); // 종료 날짜 가져오기
+                
+                $.ajax({
+                    url: '/search', // 검색 요청할 URL
+                    type: 'POST',
+                    data: {
+                        search_query: query,
+                        start_date: startDate,
+                        end_date: endDate
+                    },
+                    success: function(data) {
+                        $('#image-list').html(data); // 검색 결과로 기존 목록을 업데이트
+                    },
+                    error: function(error) {
+                        console.error('검색 중 오류 발생:', error);
+                    }
+                });
+            });
+
+            // 새로고침 버튼 클릭 이벤트 추가
+            $('#refresh').on('click', function(event) {
+                event.preventDefault(); // 기본 동작 방지
+                location.reload(); // 페이지 새로고침
+            });
+    
+            // li 클릭 이벤트 추가
+            $(document).on('click', '.image-item', function() {
+                var $image = $(this).find('img'); // 클릭한 li의 자식인 img 요소 선택
+                $('.hidden-image').not($image).hide(); // 다른 이미지는 숨김
+                $image.toggle(); // 클릭한 이미지만 토글 (보이거나 숨기기)
+            });
+        });
+    </script>
+</body>
+</html>
