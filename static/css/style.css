@@ -24,7 +24,7 @@ body {
 .list {
     width: 40%;
     padding-left: 10px;
-    color: white;
+    color: black;
     border-radius: 5px;
 }
 h1 {
@@ -76,7 +76,7 @@ input {
 .w-btn-skin {
     background-color: #f8e6e0;
     border-radius: 15px;
-    width: 32px;
+    /*width: 32px;*/
     height: 32px;
     border: none;
     font-family: 'MyCustomFont', Arial, sans-serif; /* 사용자 정의 폰트 사용 */

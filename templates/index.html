@@ -20,11 +20,13 @@
             <h2>방문자 목록</h2>
             <form id="search-form">
                 <br>
-                <input type="text" name="search_query" placeholder="방문자 검색">
-                <input type="date" name="start_date" placeholder="시작 날짜">
-                <input type="date" name="end_date" placeholder="종료 날짜">
-                <button type="submit" class="w-btn-skin"><b>🔍</b></button>
-                <button class="w-btn-skin" id="refresh"><b>🔄</b></button>
+                기간 입력 : <input type="date" name="start_date" placeholder="시작 날짜"> ~ 
+                <input type="date" name="end_date" placeholder="종료 날짜"><br>                
+                방문자 검색 : <input type="text" name="search_query" placeholder="방문자">
+                <button type="submit" class="w-btn-skin"><b>검색 🔍</b></button>
+                <button class="w-btn-skin" id="refresh" ><b>새로고침 🔄</b></button>
+                
+                
             </form>
             
             <div id="search-results"></div> <!-- 검색 결과를 표시할 영역 -->            

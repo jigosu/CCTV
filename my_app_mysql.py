@@ -15,7 +15,7 @@ import numpy as np
 app = Flask(__name__)
 
 # YOLOv8 모델 로드
-model = YOLO('best_1019.pt')
+model = YOLO('best_증강전_l모델.pt')
 
 # 비디오 스트림 설정
 cap = cv2.VideoCapture(0)
@@ -47,7 +47,7 @@ conn.commit()
 email_interval = 5
 last_email_time = 0
 
-def send_email(image_name):
+def send_email(image_name, class_name):
     sender_email = ""  # 발신자 이메일
     password = ""  # 비밀번호 또는 앱 비밀번호
     receiver_email = ""  # 수신자 이메일
@@ -55,9 +55,9 @@ def send_email(image_name):
     msg = MIMEMultipart()
     msg['From'] = sender_email
     msg['To'] = receiver_email
-    msg['Subject'] = "Face Detection Alert"
+    msg['Subject'] = "실시간 CCTV 감지 - " + str(class_name)
     
-    body = "A face has been detected. Please find the attached image."
+    body = "얼굴이 감지되었습니다."
     msg.attach(MIMEText(body, 'plain'))
 
     try:
@@ -126,7 +126,7 @@ def detect_faces():
                 cursor.execute('INSERT INTO images (image_name, save_date, labels) VALUES (?, ?, ?)', (image_name_normalized, save_date, labels_str))
                 conn.commit()
 
-                email_thread = threading.Thread(target=send_email, args=(image_name,))  # 기존의 절대 경로를 사용
+                email_thread = threading.Thread(target=send_email, args=(image_name,image_labels))  # 기존의 절대 경로를 사용
                 email_thread.start()
                 last_email_time = current_time
 
